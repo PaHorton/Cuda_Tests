@@ -71,7 +71,7 @@ int main() {
     }
     printf("\n");
     time(&stop);
-    int diff = difftime(stop,start);
+    diff = difftime(stop,start);
     printf("Completed CPU multiplication of %d in %d seconds\n", N, diff);
     return EXIT_SUCCESS;
 }
