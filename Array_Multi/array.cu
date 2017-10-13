@@ -33,7 +33,7 @@ int main() {
         b[i] = i;
         printf("%d ",a[i]);
     }
-    printf("\n")
+    printf("\n");
     time(&start);
     cudaMalloc( (void**)&ad, isize );
 	cudaMalloc( (void**)&bd, isize );
@@ -52,7 +52,7 @@ int main() {
     for(int i = 0; i < N; i++){
         printf("%d ",a[i]);
     }
-    printf("\n")
+    printf("\n");
     time(&stop);
     diff = timediff(stop,start);
     printf("Completed GPU multiplication of %d in %d seconds\n", N, diff);
