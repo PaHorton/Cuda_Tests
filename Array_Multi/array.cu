@@ -2,7 +2,11 @@
 #include <time.h>
 #include <math.h>
 
+<<<<<<< Updated upstream
 const long N = pow(2,30);
+=======
+const int N = 1024;
+>>>>>>> Stashed changes
 const int blocksize = 16;
 
 __global__
