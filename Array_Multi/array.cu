@@ -22,6 +22,7 @@ int main()
     for(int i = 0; i < N; i++){
         printf("%d ",a[i]);
     }
+    printf("\n")
 
     cudaMalloc( (void**)&ad, isize );
 	cudaMalloc( (void**)&bd, isize );
@@ -40,4 +41,5 @@ int main()
     for(int i = 0; i < N; i++){
         printf("%d ",a[i]);
     }
+    printf("\n")
 }
