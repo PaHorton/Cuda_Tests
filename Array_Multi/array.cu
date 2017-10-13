@@ -19,7 +19,7 @@ void CPU_multi(long *a, long *b) {
 
 int main() {
     const long isize = N*sizeof(long);
-    long *a = (long*) malloc(N*sizeof(long)); 
+    long *a = (long*) malloc(N*sizeof(long));
     long *b = (long*) malloc(N*sizeof(long));
     long *ad;
     long *bd;
