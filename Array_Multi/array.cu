@@ -1,29 +1,40 @@
 #include <stdio.h>
+#include <time.h>
 
 const int N = 16;
 const int blocksize = 16;
 
 __global__
-void multi(int *a, int *b)
-{
+void GPU_multi(int *a, int *b) {
 	a[threadIdx.x] *= b[threadIdx.x];
 }
 
-int main()
-{
-    int a[N] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-    int b[N] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+void CPU_multi(int *a, int*b) {
+    for(i = 0; i<N; i++){
+        a[i] *= b[i]
+    }
+}
+
+
+int main() {
+    int a[N];
+    int b[N];
 
     int *ad;
     int *bd;
 
+    time_t start;
+    time_t stop;
+
     const int isize = N*sizeof(int);
 
     for(int i = 0; i < N; i++){
+        a[i] = i;
+        b[i] = i;
         printf("%d ",a[i]);
     }
     printf("\n")
-
+    time(&start);
     cudaMalloc( (void**)&ad, isize );
 	cudaMalloc( (void**)&bd, isize );
 
@@ -32,7 +43,7 @@ int main()
 
     dim3 dimBlock( blocksize, 1 );
     dim3 dimGrid( 1, 1 );
-    multi<<<dimGrid, dimBlock>>>(ad, bd);
+    GPU_multi<<<dimGrid, dimBlock>>>(ad, bd);
 
     cudaMemcpy( a, ad, isize, cudaMemcpyDeviceToHost );
     cudaFree( ad );
@@ -42,4 +53,24 @@ int main()
         printf("%d ",a[i]);
     }
     printf("\n")
+    time(&stop);
+    diff = timediff(stop,start);
+    printf("Completed GPU multiplication of %d in %d seconds\n", N, diff);
+
+    for(int i = 0; i < N; i++){
+        a[i] = i;
+        b[i] = i;
+        printf("%d ",a[i]);
+    }
+    printf("\n")
+    time(&start);
+    CPU_multi(a,b);
+    for(int i = 0; i < N; i++){
+        printf("%d ",a[i]);
+    }
+    printf("\n");
+    time(&stop);
+    diff = timediff(stop,start);
+    printf("Completed CPU multiplication of %d in %d seconds\n", N, diff);
+    return EXIT_SUCCESS;
 }
