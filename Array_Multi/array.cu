@@ -10,8 +10,8 @@ void GPU_multi(int *a, int *b) {
 }
 
 void CPU_multi(int *a, int*b) {
-    for(i = 0; i<N; i++){
-        a[i] *= b[i]
+    for(int i = 0; i<N; i++){
+        a[i] *= b[i];
     }
 }
 
@@ -23,6 +23,7 @@ int main() {
     int *ad;
     int *bd;
 
+    double diff = 0.0;
     time_t start;
     time_t stop;
 
@@ -54,7 +55,7 @@ int main() {
     }
     printf("\n");
     time(&stop);
-    diff = timediff(stop,start);
+    diff = difftime(stop,start);
     printf("Completed GPU multiplication of %d in %d seconds\n", N, diff);
 
     for(int i = 0; i < N; i++){
@@ -62,7 +63,7 @@ int main() {
         b[i] = i;
         printf("%d ",a[i]);
     }
-    printf("\n")
+    printf("\n");
     time(&start);
     CPU_multi(a,b);
     for(int i = 0; i < N; i++){
@@ -70,7 +71,7 @@ int main() {
     }
     printf("\n");
     time(&stop);
-    diff = timediff(stop,start);
+    int diff = difftime(stop,start);
     printf("Completed CPU multiplication of %d in %d seconds\n", N, diff);
     return EXIT_SUCCESS;
 }
